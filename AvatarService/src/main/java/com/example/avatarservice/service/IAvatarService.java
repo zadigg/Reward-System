@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IAvatarService {
     public Avatar addAvatar(Avatar avatar);
-    public Avatar updateAvatar(Avatar avatar);
-    public void deleteAvatar(Long id);
-    public Avatar getAvatar(Long id);
-    public List<Avatar> getAllAvatar();
+    public Avatar updateAvatar(Long id,Avatar avatar);
+    public boolean deleteAvatar(Long id);
+    public Avatar getAvatarById(Long id);
+    public List<Avatar> getAllAvatars();
 
 }

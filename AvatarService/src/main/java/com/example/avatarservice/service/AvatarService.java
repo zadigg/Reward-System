@@ -18,24 +18,13 @@ public class AvatarService implements IAvatarService {
     }
 
     @Override
-    public Avatar updateAvatar(Avatar avatar) {
-        Optional<Avatar> avatar1= avatarRepo.findById(avatar.getId());
-        if(avatar1.isPresent()){
-            Avatar avatar2= avatar1.get();
-            avatar2.setBody(avatar.getHead());
-            avatar2.getHair();
-            avatar2.getEye();
-            avatar2.getEyebrow();
-            avatar2.getNose();
-            avatar2.getMouth();
-            avatar2.getEars();
-            avatar2.getBody();
-            avatar2.getHat();
-            avatar2.getTop();
-            avatar2.getTopColor();
-            avatar2.getHatColor();
-            return avatarRepo.save(avatar2);
+    public Avatar updateAvatar(Long avatarId ,Avatar avatar) {
+        Optional<Avatar> oldAvatar= avatarRepo.findById(avatarId);
+        if (oldAvatar.isPresent()){
+            Avatar updatedAvatar = avatarRepo.save(avatar);
+            return updatedAvatar;
         }
+
         else {
             return avatarRepo.save(avatar);
         }
@@ -43,23 +32,24 @@ public class AvatarService implements IAvatarService {
     }
 
     @Override
-    public void deleteAvatar(Long id) {
-        avatarRepo.deleteById(id);
+    public boolean deleteAvatar(Long id) {
+        try{
+            avatarRepo.deleteById(id);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+
     }
 
     @Override
-    public Avatar getAvatar(Long id) {
-        Optional<Avatar> avatar= avatarRepo.findById(id);
-        if(avatar.isPresent()){
-            return avatar.get();
-        }
-        else {
-            return null;
-        }
+    public Avatar getAvatarById(Long avatarId) {
+        Optional<Avatar> avatar= avatarRepo.findById(avatarId);
+       return avatar.orElse(null);
     }
 
     @Override
-    public List<Avatar> getAllAvatar() {
+    public List<Avatar> getAllAvatars() {
         return avatarRepo.findAll();
     }
 }
