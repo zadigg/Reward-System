@@ -1,5 +1,4 @@
-package com.example.studentservice.Domain;
-
+package com.example.studentfeign.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
-
 import java.util.HashMap;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
