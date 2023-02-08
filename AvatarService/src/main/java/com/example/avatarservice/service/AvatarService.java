@@ -26,7 +26,7 @@ public class AvatarService implements IAvatarService {
         }
 
         else {
-            return avatarRepo.save(avatar);
+          return null;
         }
 
     }
