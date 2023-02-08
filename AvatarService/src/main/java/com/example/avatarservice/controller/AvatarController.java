@@ -31,10 +31,13 @@ public class AvatarController {
     @DeleteMapping("/remove/{avatarId}")
     public ResponseEntity<String> deleteAvatar(@PathVariable Long avatarId){
         boolean isDeleted= iAvatarService.deleteAvatar(avatarId);
-        if (!isDeleted){
-            return new ResponseEntity<>("Avatar with id= " +avatarId+" not found.",HttpStatus.NOT_FOUND);
+        if (isDeleted){
+            return ResponseEntity.ok().body("Avatar with id= " + avatarId + " is successfully deleted!!");
+
+         //return ResponseEntity.badRequest().body("Avatar with id= "+avatarId+" is not found in the database");
+        }else {
+            throw new IllegalArgumentException("Deletion is failed ");
         }
-        return new ResponseEntity<String>("Avatar with id= "+avatarId+" is successfully deleted.",HttpStatus.OK);
     }
     @GetMapping
     public ResponseEntity<?> getAllAvatar(){
