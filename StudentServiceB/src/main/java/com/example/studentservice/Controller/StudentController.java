@@ -24,7 +24,7 @@ public class StudentController {
 
     @GetMapping("/")
     public String home() {
-        return "Hello From service A";
+        return "Hello From service B";
     }
 
     @PutMapping("/student/{studentNumber}/{element}")

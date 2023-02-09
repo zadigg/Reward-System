@@ -47,7 +47,7 @@ public class StudentController {
 
     @DeleteMapping("/student/{studentNumber}/{elementName}")
     public ResponseEntity<?> deleteElement(@PathVariable String studentNumber, @PathVariable String elementName) {
-        return studentClient.deleteElement(studentNumber, elementName);
+        return studentClient.removeElement(studentNumber, elementName);
     }
 
     @GetMapping("/elements")
@@ -58,6 +58,11 @@ public class StudentController {
     @GetMapping("/student/{studentNumber}")
     public ResponseEntity<?> viewStudent(@PathVariable String studentNumber) {
         return studentClient.viewStudent(studentNumber);
+    }
+
+    @PostMapping("/student/{studentNumber}/changeScore/{score}")
+    public ResponseEntity<?> addScore(@PathVariable String studentNumber, @PathVariable int score) {
+        return studentClient.addScore(studentNumber, score);
     }
 
 
@@ -73,9 +78,6 @@ public class StudentController {
         @GetMapping("/students")
         public ResponseEntity<?> viewStudents();
 
-        @PutMapping("/student/{studentNumber}/element")
-        public ResponseEntity<?> updateStudent(@RequestBody Student student, @PathVariable String studentNumber);
-
 
         @PostMapping("/")
         public ResponseEntity<Student> addStudent(@RequestBody Student student);
@@ -84,7 +86,7 @@ public class StudentController {
         public ResponseEntity<?> deleteStudent(@PathVariable String studentNumber);
 
         @DeleteMapping("/student/{studentNumber}/{elementName}")
-        public ResponseEntity<?> deleteElement(@PathVariable String studentNumber, @PathVariable String elementName);
+        public ResponseEntity<?> removeElement( @PathVariable String studentNumber,@PathVariable String elementName );
 
         @GetMapping("/elements")
         public ResponseEntity<?> viewElements();
@@ -92,5 +94,10 @@ public class StudentController {
         @GetMapping("/student/{studentNumber}")
         public ResponseEntity<?> viewStudent(@PathVariable String studentNumber);
 
+        @PutMapping("/student/{studentNumber}/edit")
+        public ResponseEntity<?> updateStudent(@RequestBody Student student, @PathVariable String studentNumber);
+
+        @PostMapping("/student/{studentNumber}/changeScore/{score}")
+        public ResponseEntity<?> addScore(@PathVariable String studentNumber, @PathVariable int score);
     }
 }
