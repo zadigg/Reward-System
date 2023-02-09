@@ -1,2 +1,14 @@
-package com.edu.miu.TeacherAdminstration.domain;public class Teachers {
+package com.edu.miu.TeacherAdminstration.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Teachers {
+    private List<Teacher> teachers;
 }
