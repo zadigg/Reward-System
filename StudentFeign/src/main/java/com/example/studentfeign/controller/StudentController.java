@@ -19,9 +19,9 @@ public class StudentController {
         return studentClient.getName();
     }
 
-    @PutMapping("/student/{studentNumber}/element")
-    public ResponseEntity<?> addElement(@PathVariable String studentNumber) {
-        return studentClient.addElement(studentNumber);
+    @PutMapping("/student/{studentNumber}/{element}")
+    public ResponseEntity<?> addElement(@PathVariable String studentNumber, @PathVariable String element) {
+        return studentClient.addElement(studentNumber, element);
     }
 
     @GetMapping("/students")
@@ -42,6 +42,7 @@ public class StudentController {
     @DeleteMapping("/student/{studentNumber}")
     public ResponseEntity<?> deleteStudent(@PathVariable String studentNumber) {
         return studentClient.deleteStudent(studentNumber);
+
     }
 
     @DeleteMapping("/student/{studentNumber}/{elementName}")
@@ -49,6 +50,15 @@ public class StudentController {
         return studentClient.deleteElement(studentNumber, elementName);
     }
 
+    @GetMapping("/elements")
+    public ResponseEntity<?> viewElements() {
+        return studentClient.viewElements();
+    }
+
+    @GetMapping("/student/{studentNumber}")
+    public ResponseEntity<?> viewStudent(@PathVariable String studentNumber) {
+        return studentClient.viewStudent(studentNumber);
+    }
 
 
 
@@ -57,8 +67,8 @@ public class StudentController {
         @GetMapping("/")
         public String getName();
 
-        @PutMapping("/student/{studentNumber}/element")
-        public ResponseEntity<?> addElement(@PathVariable String studentNumber);
+        @PutMapping("/student/{studentNumber}/{element}")
+        public ResponseEntity<?> addElement(@PathVariable String studentNumber , @PathVariable String element);
 
         @GetMapping("/students")
         public ResponseEntity<?> viewStudents();
@@ -75,6 +85,12 @@ public class StudentController {
 
         @DeleteMapping("/student/{studentNumber}/{elementName}")
         public ResponseEntity<?> deleteElement(@PathVariable String studentNumber, @PathVariable String elementName);
+
+        @GetMapping("/elements")
+        public ResponseEntity<?> viewElements();
+
+        @GetMapping("/student/{studentNumber}")
+        public ResponseEntity<?> viewStudent(@PathVariable String studentNumber);
 
     }
 }
