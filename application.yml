@@ -1,3 +1,1 @@
-greeting: Hello from Service New
-zipkinPort: http://localhost:9411/
-zipkinSleuth: 1
+eureka-uri: http://localhost:8761/eureka/
