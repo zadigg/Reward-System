@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RefreshScope
 public class ServiceAConroller {
 
-    @Value("${hi}")
+    @Value("${name}")
+    private String greeting;
+
+    @Value("${message}")
     private String message;
 
     @RequestMapping("/")
-    public String getName() { return message;}
+    public String getName() { return greeting;}
 }
