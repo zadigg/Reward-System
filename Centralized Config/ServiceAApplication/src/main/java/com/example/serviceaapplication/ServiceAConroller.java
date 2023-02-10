@@ -12,9 +12,6 @@ public class ServiceAConroller {
     @Value("${name}")
     private String greeting;
 
-    @Value("${message}")
-    private String message;
-
     @RequestMapping("/")
     public String getName() { return greeting;}
 }
