@@ -1,6 +1,7 @@
 package com.example.elementservice.controller;
 
 import com.example.elementservice.domain.Element;
+import com.example.elementservice.domain.Elements;
 import com.example.elementservice.service.ElementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ public class ElementController {
     private ElementService elementService;
 
     @GetMapping
-    public List<Element> findAll() {
+    public Elements findAll() {
         return elementService.findAll();
     }
 
@@ -49,4 +50,15 @@ public class ElementController {
         elementService.delete(element.get());
          return new ResponseEntity<String>("Element with type: " + type + " deleted", HttpStatus.OK);
     }
+
+    @PutMapping("/update/{type}")
+    public ResponseEntity<?> update(@RequestBody Element element , @PathVariable String type) {
+        Optional<Element> element1 = elementService.findByType(element.getType());
+        if (!element1.isPresent()) {
+            return new ResponseEntity<String>("No element found with type: " + element.getType(), HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(elementService.update(element , type));
+    }
+
+
 }

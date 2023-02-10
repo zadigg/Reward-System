@@ -25,7 +25,7 @@ public class Avatar {
     private int topColor = 0;
     private int hatColor = 0;
 
-    Student student;
+
 
 //    private Student student;
 

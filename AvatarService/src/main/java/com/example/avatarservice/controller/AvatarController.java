@@ -1,6 +1,7 @@
 package com.example.avatarservice.controller;
 
 import com.example.avatarservice.domain.Avatar;
+import com.example.avatarservice.domain.Avatars;
 import com.example.avatarservice.service.AvatarService;
 import com.example.avatarservice.service.IAvatarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,11 @@ public class AvatarController {
     }
     @GetMapping
     public ResponseEntity<?> getAllAvatar(){
-        List<Avatar> avatars = iAvatarService.getAllAvatars();
-        if(avatars.size()==0){
-            return new ResponseEntity<String>("There is no Avatar in the database.", HttpStatus.NOT_FOUND);
+        Avatars avatars = iAvatarService.getAllAvatars();
+        if (avatars==null){
+            return new ResponseEntity<String>("No avatars found.", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<List<Avatar>>(avatars, HttpStatus.OK);
+        return new ResponseEntity<Avatars>(avatars, HttpStatus.OK);
     }
 
     @GetMapping("/{avatarId}")

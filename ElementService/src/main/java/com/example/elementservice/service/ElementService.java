@@ -1,6 +1,7 @@
 package com.example.elementservice.service;
 
 import com.example.elementservice.domain.Element;
+import com.example.elementservice.domain.Elements;
 import com.example.elementservice.repository.ElementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,10 @@ public class ElementService {
     @Autowired
     private ElementRepository elementRepository;
 
-    public List<Element> findAll() {
-
-        return elementRepository.findAll();
+    public Elements findAll() {
+        Elements elements = new Elements();
+        elements.setElements(elementRepository.findAll());
+        return elements;
     }
 
     public Optional<Element> findById(String id) {
@@ -32,5 +34,15 @@ public class ElementService {
 
     public void delete(Element element) {
         elementRepository.delete(element);
+    }
+
+    public Element update(Element element , String type) {
+        Optional<Element> element1 = elementRepository.findByType(type);
+        if (element1.isPresent()) {
+            element1.get().setType(element.getType());
+            element1.get().setPrice(element.getPrice());
+            return elementRepository.save(element1.get());
+        }
+        return null;
     }
 }

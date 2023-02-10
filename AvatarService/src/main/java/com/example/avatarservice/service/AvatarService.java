@@ -1,8 +1,6 @@
 package com.example.avatarservice.service;
 
-import com.example.avatarservice.domain.Avatar;
-import com.example.avatarservice.domain.Element;
-import com.example.avatarservice.domain.Student;
+import com.example.avatarservice.domain.*;
 import com.example.avatarservice.repository.AvatarRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -28,7 +26,6 @@ public class AvatarService implements IAvatarService {
         System.out.println(student);
 
         if (student.isPresent()){
-            avatar.setStudent(student.get());
             avatar.setId(studentNumber);
             avatarRepo.save(avatar);
             return true;
@@ -47,10 +44,11 @@ public class AvatarService implements IAvatarService {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<String>(headers);
-        ResponseEntity<List<Element>> response = restTemplate.exchange("http://localhost:8084/elements", HttpMethod.GET,entity, new ParameterizedTypeReference<List<Element>>() {});
-        System.out.println(response.getBody().toString());
+//        ResponseEntity<List<Element>> response = restTemplate.exchange("http://localhost:8084/elements", HttpMethod.GET,entity, new ParameterizedTypeReference<List<Element>>() {});
+        Elements response = restTemplate.getForObject("http://localhost:8084/elements", Elements.class);
+        System.out.println(response.toString());
         int priceOfElement = 0;
-        for(Element element: response.getBody()){
+        for(Element element: response.getElements()){
             if(element.getType().equals(elementType)){
                     priceOfElement = element.getPrice();
             }
@@ -114,9 +112,10 @@ public class AvatarService implements IAvatarService {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<String>(headers);
-        ResponseEntity<List<Student>> response = restTemplate.exchange("http://localhost:8090/students", HttpMethod.GET, entity, new ParameterizedTypeReference<List<Student>>() {
-        });
-        System.out.println(response.getBody().toString());
+//        ResponseEntity<List<Student>> response = restTemplate.exchange("http://localhost:8090/students", HttpMethod.GET, entity, new ParameterizedTypeReference<List<Student>>() {
+//        });
+        Students response = restTemplate.getForObject("http://localhost:8090/students", Students.class);
+        System.out.println(response.toString());
 
 //        Student student = restTemplate.getForObject("http://localhost:8090/student/"+studentNumber, Student.class);
         if(elementType.equalsIgnoreCase("Hair")) {
@@ -180,7 +179,9 @@ public class AvatarService implements IAvatarService {
     }
 
     @Override
-    public List<Avatar> getAllAvatars() {
-        return avatarRepo.findAll();
+    public Avatars getAllAvatars() {
+        Avatars avatars = new Avatars();
+        avatars.setAvatars(avatarRepo.findAll());
+        return avatars;
     }
 }

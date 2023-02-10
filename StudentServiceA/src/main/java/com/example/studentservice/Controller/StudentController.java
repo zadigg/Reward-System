@@ -2,6 +2,7 @@ package com.example.studentservice.Controller;
 
 import com.example.studentservice.Domain.Element;
 import com.example.studentservice.Domain.Student;
+import com.example.studentservice.Domain.Students;
 import com.example.studentservice.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -53,11 +54,12 @@ public class StudentController {
 
     @GetMapping("/students")
     public ResponseEntity<?> viewStudents(){
-        List<Student> schools = studentService.getAllStudents();
-        if(schools.size()==0){
-            return new ResponseEntity<String>("No Student Found.", HttpStatus.NOT_FOUND);
+       Students schools = studentService.getAllStudents();
+        if(schools == null) {
+            return new ResponseEntity<String>("No students found", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<Students>(schools, HttpStatus.OK);
         }
-        return new ResponseEntity<List<Student>>(schools, HttpStatus.OK);
     }
 
     @DeleteMapping("/student/{studentNumber}")

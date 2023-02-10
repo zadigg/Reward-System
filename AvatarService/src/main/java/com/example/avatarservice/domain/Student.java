@@ -20,6 +20,6 @@ public class Student {
     private String school;
     private String classOf;
     private int score;
-    HashMap<String, Integer> rewards;
+
 
 }
