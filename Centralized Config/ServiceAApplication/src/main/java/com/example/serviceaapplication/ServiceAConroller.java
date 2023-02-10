@@ -16,5 +16,5 @@ public class ServiceAConroller {
     private String message;
 
     @RequestMapping("/")
-    public String getName() { return greeting;}
+    public String getName() { return greeting + message; }
 }
